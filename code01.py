@@ -29,7 +29,20 @@ class Index(QtGui.QWidget):
 		quit.setGeometry(0,0,60,35)
 		#点击按钮关闭(PyQt4的事件处理系统建立在信号-槽机制之上)
 		self.connect(quit,QtCore.SIGNAL('clicked()'),QtGui.qApp,QtCore.SLOT('quit()'))
-
+	#关闭窗口的方法
+	def closeEvent(self,event):
+			#关闭窗口触发closeEvent方法
+			reply=QtGui.QMessageBox.question(self,u'提示',u"你确定关闭吗？",QtGui.QMessageBox.Yes,QtGui.QMessageBox.No)
+			#第一个字符串参数提示在消息窗口的标题栏显示，
+			#第二个字符串参数一对话的形式显示在消息窗口中
+			#返回的结果被保存在reply变量中
+			if reply==QtGui.QMessageBox.Yes:
+				#同意
+				event.accept()
+			else:
+				#忽视
+				event.ignore()
+					
 app=QtGui.QApplication(sys.argv)
 index=Index()
 index.show()
